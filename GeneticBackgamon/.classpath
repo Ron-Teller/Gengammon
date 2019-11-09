@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test/BG"/>
+	<classpathentry kind="lib" path="C:/Users/Others/Documents/NetBeansProjects/Backgammon/dist/Backgammon.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GeneticAlgorithm"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
