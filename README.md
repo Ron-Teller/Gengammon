@@ -137,6 +137,7 @@ Furthermore, we tested different trained network against each other, with these 
 |  30000 | 20 hours  | 43%  | ---  | 60%  |  99.8% |
 | 1500  |  10 minutes | 33%  | 40%  | ---  | 95.5%  |
 | Random choice  |  --- |  0.01% | 0.02%  | 4.5%  | ---  |
+
 <br /><br />
  
 The games are not played until the end. We simply play until both players are homebound, and after that there is reason to continue the game simulation, since we can count how far each of the side checkers are from being beared off (removed from the board) as a metric to who is the winner. We also take into consideration who plays the next move when using this metric, and since the average dice roll in backgammon equals will advance checker units by 8.166 points, we add that number to the side who is to roll next.
