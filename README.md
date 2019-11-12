@@ -109,4 +109,52 @@ This is problematic since this fitness function cannot measure if a gene has imp
 <br /><br />
 The fitness function needs to be able to measure small improvements a neural network has made that ranks a professional players move closer to rank 1. Suppose a neural network currently ranks a professional move 3rd, and in the next generation the gene has been mutated, it still ranks the professional move as 3rd, but is “closer” to ranking it as 2nd, then the gene has improved and thus should have a higher fitness score.
 <br /><br />
+It is important to note that these small increments in fitness score should not overpass the ranking score of the next best rank. For example, if there are 16 possible moves, and a neural network has ranked a professional player move as 3rd best, the fitness function will score that neural network 0.8666. If the neural network ranks it 2nd best, the fitness score will be 0.9333. This means that as long as the neural network ranks a professional player move as 3rd best, any improvements the neural network makes should not improve its fitness score by more than 0.9333, since the score must represent how well the neural network ranks, otherwise we will have the same problem as in the first version of the fitness function. In other words, in this example, if the neural network ranks the professional players move 3rd best (with 16 possible moves), the fitness function must score that neural network between [0.8666, 0.9333).
+<br /><br />
+From the above it is concluded that the current formula needs to be changed to accumulate for small improvements in the neural networks ranking of the professional players moves, for a way to measure if the neural network is getting “closer” to ranking the professional players move a higher rank.
+<br /><br />
+The “secondary score” (small increment in fitness score) is calculated by taking the distance of the neural network rating for the professional players move and the score of the move currently ranked 1st place by the neural network, divided by the number of possible moves and the max rating (move ranked 1st). For example, if the rating of the professionals move is 100, and the first ranked move is 120 (with 16 possible moves), then our secondary score will be (120- 100) / (16*120). We must divide by the amount of moves and highest score so that secondary score does not change the fitness score to a higher rank. For example, if the professional players move is ranked 3rd, then the neural nets fitness score would be (0.8666 + secondary score) < 0.9333.
+<br />
+<b>The secondary score is important, and was one of the main improvements in training.</b>
+<br /><br />
+<b>Mutation:</b> The mutation that worked best was swap mutation, where we pick 2 random weights in the hidden layer and swap them. This mutation was far superior to our binary swapper, where we would pick a random weight and simply change a single bit. Even changing more than 1 bit did not yield such good results (it worked, but was very slow).
+<br /><br />
+<b>Crossover:</b> The crossover performed by merging a uniform amount of weights from 2 parents into 1 offspring. This crossover is by far superior the first crossover we tried, which consisted of taking a uniform amount of bits for each weight from 2 parents. <b>This was our biggest improvement in the genetic algorithm</b>, it was very pleasant to see the speed up improvement. It is worth noting that once convergence started slowing down (usually at 94%), we could switch between the crossovers after every amount of iterations. We are not sure if it was better this way or not.
+<br /><br />
+<h1>Benchmarks</h1>
+We did not have enough time to test our program against other AI’s, however we played them against ourselves (humans) and a heuristic function that we created last semester for minimax.
+<br /><br />
+The neural network is able to defeat us human players, with a ratio of over 40%. It plays well, but sometimes it chooses very weird moves (especially when having the possibility to capture one of the opponents pieces, it will do so sometimes carelessly, we are not sure why). It won our minimax heuristic 53%.
+<br /><br />
+Furthermore, we tested different trained network against each other, with these results:
+<br /><br />
+*A total of 50000 games played against each other.
+<br />
+
+| Data set size  | Time training  | 45000  | 30000  |  1500 |  Random |
+|---|---|---|---|---|---|
+|  45000 | 20 hours  | ---  | 57%  |  67% |  99.9% |
+|  30000 | 20 hours  | 43%  | ---  | 60%  |  99.8% |
+| 1500  |  10 minutes | 33%  | 40%  | ---  | 95.5%  |
+| Random choice  |  --- |  0.01% | 0.02%  | 4.5%  | ---  |
+<br /><br />
+ 
+The games are not played until the end. We simply play until both players are homebound, and after that there is reason to continue the game simulation, since we can count how far each of the side checkers are from being beared off (removed from the board) as a metric to who is the winner. We also take into consideration who plays the next move when using this metric, and since the average dice roll in backgammon equals will advance checker units by 8.166 points, we add that number to the side who is to roll next.
+<br /><br />
+<b>Home Bound Metric:</b> Using this sort of calculation, we came up with a new benchmark to see how well a neural network fares against another, we simply count the distance of the checkers after both players are homebound, just as mentioned above, but we don’t output a simple “win” or “lose”, but the difference between the distances. So a neural network that played against another network for 50000 games, and the overall output is “2.34”, this means that this neural network is better because it had a lead of 2.34 points on average for every game. This metric is <b>much more accurate</b> than the “won or lose” metric, since it can actually show you by how much a neural network is better instead of wins and losses, and usually for 2 networks that are very similar the “win or lose” is less accurate than this metric.
+<br />
+We will call this metric the <b>Home Bound</b> metric.
+<br /><br />
+
+<h1>Future Possibilities</h1>
+
+<b>Unsupervised learning:</b> It is possible (not yet tested) to train a network without supervision by creating its own data set using the Home Bound metric. The tests are created by letting the network (which is completely random and a bad player at first) play against itself. Thus we can create the 3 components of the tests: initial board, dice and color. What we have left is the “chosen board”. To choose the “chosen board”, we let the network play against itself for let’s say 1000 times, for every possible board move.
+The board move that achieved the highest home bound metric will be chosen as the “chosen move”.
+<br /><br />
+After creating a data set, we train our neural network by it. After the network has been trained, we repeat the process. We create a new data set (reevaluate the chosen moves by playing the new network against itself).
+<br /><br />
+
+
+<b>Conclusions:</b>
+Working on this project has been a lot of fun. We chose genetic algorithm as our trainer in order to see how well it could train a neural network. We hope to train a network using backpropagation and see the differences. This method proved itself promising, and we are sure there are many improvements that can be made to make the neural network play much better. 
 
