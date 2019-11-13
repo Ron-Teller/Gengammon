@@ -237,7 +237,7 @@ The GUI and backgammon code used for this project was taken from another project
 Run the <b>backgammon.jar</b> file
 The game setting window will open, it should look like this:
 <br /><br />
-![Alt text](game_settings.png)
+![game_settings](https://github.com/Ron-Teller/Gengammon/blob/master/game_settings.PNG)
 <br /><br />
 Highlighted in red boxes are the settings that you need to make sure are correct to play against the AI.
 <br />
@@ -257,7 +257,7 @@ Highlighted in red boxes are the settings that you need to make sure are correct
 <br /><br />
 Press <b>"START GAME"</b> to run the game. A game window will pop up.
 <br /><br />
-![Alt text](game_window.PNG)
+![Game Window](https://github.com/Ron-Teller/Gengammon/blob/master/game_window.PNG)
 <br /><br />
 <b>New Game:</b> Start a new game.
 <br />
