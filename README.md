@@ -236,7 +236,9 @@ The GUI and backgammon code used for this project was taken from another project
 <br /><br />
 1. Run the <b>backgammon.jar</b> file
 2. The game setting window will open, it should look like this:
+<br /><br />
 ![Alt text](game_settings.png)
+<br /><br />
 
 
 
