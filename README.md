@@ -1,3 +1,29 @@
+- [Introduction](#introduction)
+- [Genetic Algorithm](#genetic-algorithm)
+  * [Neural Network](#neural-network)
+    + [Layers](#neural-network-layers)  
+    + [Illustration](#neural-network-illustration)      
+  * [Training Data](#training-data)
+    + [Database](#database)  
+    + [Data format](#data-format)  
+    + [Training method](#training-method)      
+  * [Data set](#data-set)
+    + [Structure](#data-set-structure)  
+    + [Filters](#data-set-filters)
+      - [Homebound](#homebound-filter)    
+      - [Contradicting](#contradicting-filter)   
+      - [Unmovable](#unmovable-filter)      
+  * [Gene](#gene)
+  * [Fitness](#fitness)
+    + [v.1](#fitness-v1)  
+    + [v.2](#fitness-v2)  
+    + [v.3](#fitness-v3)      
+  * [Mutation](#mutation)
+  * [Crossover](#crossover)
+  * [Benchmarks](#benchmarks)
+
+
+<a name="introduction"></a>
 # Gengammon
 Artificial intelligence trained by a genetic algorithm to play backgammon
 <br />
@@ -5,25 +31,36 @@ The name "Gengammon" is formed by combining the words "genetic" and "backgammon"
 <br /><br />
 In this Hackathon project we present a supervised training method using genetic algorithm to train a neural network to play Backgammon. The neural network is trained to mimic moves played by professional backgammon players in real games (taken from an online database). The neural network simply rates how good a certain board is for the current player, a higher number being better. Thus, if the current player has rolled his die and has 18 possible ways to move his checkers into a new board state, the board state with the highest ranking will be the best move calculated by the neural network.
 
-<h1>Neural network</h2>
+<a name="genetic-algorithm"></a>
+<a name="neural-network"></a>
+<h1>Neural network</h1>
 
 The neural network is comprised of 3 layers.
 <br /><br />
+<a name="neural-network-layers"></a>
 The <b>first</b> layer is the input, consisting of 52 nodes, 26 nodes for each of the two players on the board, the current player and the opponent. Out of the 26 nodes allocated for each player, 24 of the 26 nodes represent the points on the board (1-24), and another 2 points represent the bar (checkers that have been “eaten” or “imprisoned” by the other side), one bar for each side, so for each side you can represent how checkers they have imprisoned, or have been eaten by the opponent. A number in each node represents the amount of checkers occupying the point, so 0 represents no checkers in this point, and 5 means there are five checkers of the corresponding side on that point.
 <br /><br />
-The <b>second</b> layer is the hidden layer, it consists of 26 nodes that are connected to all input nodes. The third layer is simply 1 node that is the sum of all the hidden layer nodes.
+The <b>second</b> layer is the hidden layer, it consists of 26 nodes that are connected to all input nodes. 
+<br /><br />
+The third layer is simply 1 node that is the sum of all the hidden layer nodes.
 <br /><br />
 A picture will illustrate this more clearly
 <br /><br />
+<a name="neural-network-illustration"></a>
 ![Alt text](neuralnet_layers.png)
 <br /><br />
-<h1>Training the neural network</h1>
-The neural network is trained by learning from moves played by professional players. The database used for this project was obtained from the website http://itikawa.com/kifdb/herodb.cgi?table=bg 
+
+<a name="training-data"></a>
+<h1>Training Data</h1>
+<a name="database"></a>
+<b>Database</b>: The neural network is trained by learning from moves played by professional players. The database used for this project was obtained from the website http://itikawa.com/kifdb/herodb.cgi?table=bg 
 <br />
 
 The game files may be retrieved writing a script to download them (should be somewhere in repository).
 <br />
 
+<a name="data-format"></a>
+<h2>Data Format</h2>
 The database consists of several text formats for recording games, so it is necessary to parse each one differently, and then make sure that all moves are valid by backgammon game logic. An example of a file looks like this:
 <br /><br />
 
@@ -39,6 +76,8 @@ Game 1
   7)  Drops                             Wins 1 point
 </pre>
 
+<a name="training-method"></a>
+<h2>Training Method</h2>
 In the example above, “Thomas Low” was the first to move, rolled a 6-4, and moved one piece from point 24 to 18, and another piece from 13 to 9.
 <br /><br />
 This single move can be used to train our neural network. If we look closely, Thomas, who was the first to move, rolled a 6-4 and had 14 different possible moves he could make (which would create a new board state). He chose his specific move which resulted in a new board state (after moving 24-18 and 13-9). The new board state is the result of Thomas choosing to move his pieces given the current board and die roll. The way we train our neural network is, given all 14 possible board states Thomas could have moved to, to rate the highest the state that Thomas chose.
@@ -48,8 +87,11 @@ In the game above, 10 moves were recorded total, 5 played by Thomas Low and anot
 The way to train our neural network is, given an initial board state and die roll that a professional player has played, generate all possible board states (from all possible moves) and train the neural network to rate the board state chosen by the professional player the highest (“chosen board state”). The fitness function in our genetic algorithm does just that – approximates how good of a job a neural network (gene) does at rating the moves of professional players the highest from the other possible moves that could have been chosen (more details about the fitness function later).
 <br /><br />
 
+
+<a name="data-set"></a>
 <h1>Data Set (Training set)</h1>
 
+<a name="data-set-structure"></a>
 The data set consists of many “tests”. A test is comprised of 4 components:
 1.	<b>Initial board state:</b> The state of the board before the professional player moved.
 2.	<b>Chosen board state:</b> The state of the board after the professional player has moved.
@@ -62,24 +104,34 @@ The data set is created by parsing all game files recording professional player 
 
 <b>Improvements to the data set</b>
 <br /><br />
+<a name="data-set-filters"></a>
 Some improvements were made to the data set, which were mainly filtering out data that was not needed.
 <br /><br />
-Not all moves played by professionals in games are included in the data set for the neural networks to learn from. We filter out all moves that are made after both players are homebound, meaning that both players have passed each other and it is simply a race to the finish, without any strategy to win, so it would be a waste of resources to train the networks with such data. A simple code was created for the AI to use once it is homebound (it does not rely on the neural network anymore). 
+<a name="homebound-filter"></a>
+<b>Homebound Filter:</b> Not all moves played by professionals in games are included in the data set for the neural networks to learn from. We filter out all moves that are made after both players are homebound, meaning that both players have passed each other and it is simply a race to the finish, without any strategy to win, so it would be a waste of resources to train the networks with such data. A simple code was created for the AI to use once it is homebound (it does not rely on the neural network anymore). 
 <br /><br />
 Filtering out these moves (after homebound) made our network learn faster and much more accurately, with an increase from 88% to 95% in gene fitness (100% fitness means the neural network mimics all moves in the data set like the professional players move). More specific details do not exist since we did not record the exact improvements, but this was one of our main improvements to speeding up learning and improving accuracy. 
 <br /><br />
-Furthermore, we also filtered out all tests that were had moves that were chosen differently by different professional players - that had the same initial board state and die roll, but different chosen board state. This means that different professional players were in the same state but chose to move differently. We arbitrarily kept one of the tests and discarded the other tests. It would be impossible to achieve 100% accuracy otherwise.
+<a name="contradicting-filter"></a>
+<b>Contradicting Move Filter:</b> Furthermore, we also filtered out all tests that were had moves that were chosen differently by different professional players - that had the same initial board state and die roll, but different chosen board state. This means that different professional players were in the same state but chose to move differently. We arbitrarily kept one of the tests and discarded the other tests. It would be impossible to achieve 100% accuracy otherwise.
 <br /><br />
-Another simple data set filter that we have not yet implemented is filtering out all tests that comprise of moves that are unmovable, that means that the initial board and chosen board are the same (this only happens if the player has an imprisoned checker and cannot enter the opponents base), since it takes up CPU time and does not make a difference to the training.
+<a name="unmovable-filter"></a>
+<b>Unmovable Plays Filter:</b> Another simple data set filter that we have not yet implemented is filtering out all tests that comprise of moves that are unmovable, that means that the initial board and chosen board are the same (this only happens if the player has an imprisoned checker and cannot enter the opponents base), since it takes up CPU time and does not make a difference to the training.
 <br /><br />
 
 
-<h1>Genetic Algorithm</h1>
-<b>Gene:</b> A Gene is a single neural network. The neural networks weights are randomized completely when a gene is created.
+<a name="gene"></a>
+<h1>Gene:</h1> 
+A Gene is a single neural network. The neural networks weights are randomized completely when a gene is created.
+
+
+<a name="fitness"></a>
+<h1>Fitness:</j1>
+The fitness function in our genetic algorithm approximates how good of a job a neural network (gene) does at rating the moves of professional players the highest from the other possible moves that could have been chosen. There are different ways to calculate the fitness. We will present the different methods that were used and how they were improved.
 <br /><br />
-<b>Fitness:</b> The fitness function in our genetic algorithm approximates how good of a job a neural network (gene) does at rating the moves of professional players the highest from the other possible moves that could have been chosen. There are different ways to calculate the fitness. We will present the different methods that were used and how they were improved.
-<br /><br />
-The first fitness function was calculated by comparing the chosen board rating (move chosen by professional player) to the lowest and highest rating of all possible board states. For example, given an initial board state that has, for example, 16 different possible moves (one of them is the move chosen by the professional), then we feed all of them through the neural network and get their rating. We then find the MINIMUM_RATING rating given for one of the moves, the MAXIMUM_RATING rating given and PROFESSIONAL_RATING – the rating the neural network gave the move the professional player played. We then use the formula:
+
+<a name="fitness-v1"></a>
+<b>[Version 1]</b> The first fitness function was calculated by comparing the chosen board rating (move chosen by professional player) to the lowest and highest rating of all possible board states. For example, given an initial board state that has, for example, 16 different possible moves (one of them is the move chosen by the professional), then we feed all of them through the neural network and get their rating. We then find the MINIMUM_RATING rating given for one of the moves, the MAXIMUM_RATING rating given and PROFESSIONAL_RATING – the rating the neural network gave the move the professional player played. We then use the formula:
 <br /><br />
 <b>| PROFESSIONAL_RATING - MINIMUM_RATING| / |MAXIMUM_RATING - MINIMUM_RATING|</b>
 <br /><br />
@@ -91,7 +143,9 @@ This formula had its problems, since it did not take into consideration the <b>r
 <br /><br />
 However, what happens if the rest of the 13 possible moves are rated with scores (by the neural network) between 991 to 999? That means that there are 14 total moves that are <b>ranked higher</b> than the professional players move, making it the <b>second lowest ranked move</b>. This means that the neural network is doing a bad job at rating our professional players move, and yet the fitness function gave it a high fitness score of 0.99 (99%). Thus, this fitness function had to be changed to be able to estimate how well a neural network does at <b>ranking</b> a professional players move in comparison to other possible moves.
 <br /><br />
-A new fitness function was formulated that will score the neural networks based on how well they ranked the professional players moves. The new fitness function checks what rating the neural network gave for each possible move, and finds how high the professional player move ranked. The formula is:
+
+<a name="fitness-v2"></a>
+<b>[Version 2]</b> A new fitness function was formulated that will score the neural networks based on how well they ranked the professional players moves. The new fitness function checks what rating the neural network gave for each possible move, and finds how high the professional player move ranked. The formula is:
 <br />
 <b>(TOTAL_MOVES – RANK_PROFESSIONAL) / (TOTAL_MOVES – 1)</b>
 <br />
@@ -107,7 +161,9 @@ For example, if our neural network currently ranks a professional players move a
 <br /><br />
 This is problematic since this fitness function cannot measure if a gene has improved a little, thus it does not rank a gene that might be closer to achieving 2nd rank for a professional player move a better score.
 <br /><br />
-The fitness function needs to be able to measure small improvements a neural network has made that ranks a professional players move closer to rank 1. Suppose a neural network currently ranks a professional move 3rd, and in the next generation the gene has been mutated, it still ranks the professional move as 3rd, but is “closer” to ranking it as 2nd, then the gene has improved and thus should have a higher fitness score.
+
+<a name="fitness-v3"></a>
+<b>[Version 3]</b> A new fitness function needed to be formulated to be able to measure small improvements a neural network has made that ranks a professional players move closer to rank 1. Suppose a neural network currently ranks a professional move 3rd, and in the next generation the gene has been mutated, it still ranks the professional move as 3rd, but is “closer” to ranking it as 2nd, then the gene has improved and thus should have a higher fitness score.
 <br /><br />
 It is important to note that these small increments in fitness score should not overpass the ranking score of the next best rank. For example, if there are 16 possible moves, and a neural network has ranked a professional player move as 3rd best, the fitness function will score that neural network 0.8666. If the neural network ranks it 2nd best, the fitness score will be 0.9333. This means that as long as the neural network ranks a professional player move as 3rd best, any improvements the neural network makes should not improve its fitness score by more than 0.9333, since the score must represent how well the neural network ranks, otherwise we will have the same problem as in the first version of the fitness function. In other words, in this example, if the neural network ranks the professional players move 3rd best (with 16 possible moves), the fitness function must score that neural network between [0.8666, 0.9333).
 <br /><br />
@@ -117,10 +173,21 @@ The “secondary score” (small increment in fitness score) is calculated by ta
 <br />
 <b>The secondary score is important, and was one of the main improvements in training.</b>
 <br /><br />
-<b>Mutation:</b> The mutation that worked best was swap mutation, where we pick 2 random weights in the hidden layer and swap them. This mutation was far superior to our binary swapper, where we would pick a random weight and simply change a single bit. Even changing more than 1 bit did not yield such good results (it worked, but was very slow).
+
+
+<a name="mutation"></a>
+<h1>Mutation:</h1>
+The mutation that worked best was swap mutation, where we pick 2 random weights in the hidden layer and swap them. This mutation was far superior to our binary swapper, where we would pick a random weight and simply change a single bit. Even changing more than 1 bit did not yield such good results (it worked, but was very slow).
 <br /><br />
-<b>Crossover:</b> The crossover performed by merging a uniform amount of weights from 2 parents into 1 offspring. This crossover is by far superior the first crossover we tried, which consisted of taking a uniform amount of bits for each weight from 2 parents. <b>This was our biggest improvement in the genetic algorithm</b>, it was very pleasant to see the speed up improvement. It is worth noting that once convergence started slowing down (usually at 94%), we could switch between the crossovers after every amount of iterations. We are not sure if it was better this way or not.
+
+
+<a name="crossover"></a>
+<h1>Crossover:</h1>
+The crossover performed by merging a uniform amount of weights from 2 parents into 1 offspring. This crossover is by far superior the first crossover we tried, which consisted of taking a uniform amount of bits for each weight from 2 parents. <b>This was our biggest improvement in the genetic algorithm</b>, it was very pleasant to see the speed up improvement. It is worth noting that once convergence started slowing down (usually at 94%), we could switch between the crossovers after every amount of iterations. We are not sure if it was better this way or not.
 <br /><br />
+
+
+<a name="benchmarks"></a>
 <h1>Benchmarks</h1>
 We did not have enough time to test our program against other AI’s, however we played them against ourselves (humans) and a heuristic function that we created last semester for minimax.
 <br /><br />
