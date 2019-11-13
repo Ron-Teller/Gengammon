@@ -234,14 +234,45 @@ Working on this project has been a lot of fun. We chose genetic algorithm as our
 <h1>How To Play</h1>
 The GUI and backgammon code used for this project was taken from another project, so when you run the game you will see options unrelated to playing against the AI developed in this project using genetic algorithm. Below is a step by step guide how to play vs the AI developed by this project.
 <br /><br />
-1. Run the <b>backgammon.jar</b> file
-2. The game setting window will open, it should look like this:
+Run the <b>backgammon.jar</b> file
+The game setting window will open, it should look like this:
 <br /><br />
 ![Alt text](game_settings.png)
 <br /><br />
-![neural_network_illustration](neuralnet_layers.png)
+Highlighted in red boxes are the settings that you need to make sure are correct to play against the AI.
+<br />
+<b>Game Mode:</b> Choose <b>"Normal"</b> - IMPORTANT! (the other 2 choices are non relevant are for another project). Normal means normal die rolls.
+<br />
+<b>Algorithm:</b> Choose <b>"Genetic"</b> to play against AI that was trained with genetic algorithm. 
+<br />
+    If you wish to, you can choose to play against an AI that works with minimax by choosing either "Minimax" or "Alpha-beta" (better option)
+<br />
+<b>Bot Player Type/Top Player Type:</b> Make sure that one of these is <b>"AI"</b> and the other <b>"Human"</b> so you can play against the AI.
+<br />
+<b>Top Color:</b> For personal preference, the top player (base point 18-24) will be this color.
+<br />
+<b>First Move:</b> Which player color moves first.
+<br />
+<b>Neural Network File:</b> File destination of neural network saved on file. In the repository there are 2 such files, "AI_30000_iterations.txt" and "AI_45000_iterations.txt". Download them and drag them into the box.
+<br /><br />
+Press <b>"START GAME"</b> to run the game. A game window will pop up.
+<br /><br />
+![Alt text](game_window.PNG)
+<br /><br />
+<b>New Game:</b> Start a new game.
+<br />
+<b>Restart:</b> Stops current game and starts a new one.
+<br />
+<b>Move:</b> After you have moved all your checkers, press this to play your move.
+<br />
+<b>Undo:</b> If its your move and you have moved checkers but havn't played yet (by pressing the "Move" button) you can press "Undo" to undo the last checker you moved.
+<br />
+<b>Move For Me:</b> The AI will play for you.
 <br /><br />
 
+In the Log box you can see the move history.
+<br /><br />
+Enjoy!
 
 
 
