@@ -105,10 +105,10 @@ The data set is created by parsing all game files recording professional player 
 <a name="data-set-filters"></a>
 <h2>Data Set Filters</h2>
 Some improvements were made to the data set, which were mainly filtering out data that was not needed.
-<br />
+<br /><br />
 <a name="homebound-filter"></a>
 <b>Homebound Filter:</b> Not all moves played by professionals in games are included in the data set for the neural networks to learn from. We filter out all moves that are made after both players are homebound, meaning that both players have passed each other and it is simply a race to the finish, without any strategy to win, so it would be a waste of resources to train the networks with such data. A simple code was created for the AI to use once it is homebound (it does not rely on the neural network anymore). 
-<br /><br />
+<br />
 Filtering out these moves (after homebound) made our network learn faster and much more accurately, with an increase from 88% to 95% in gene fitness (100% fitness means the neural network mimics all moves in the data set like the professional players move). More specific details do not exist since we did not record the exact improvements, but this was one of our main improvements to speeding up learning and improving accuracy. 
 <br /><br />
 <a name="contradicting-filter"></a>
