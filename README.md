@@ -7,6 +7,7 @@ The name "Gengammon" is formed by combining the words "genetic" and "backgammon"
 In this Hackathon project we present a supervised training method using genetic algorithm to train a neural network to play Backgammon. The neural network is trained to mimic moves played by professional backgammon players in real games (taken from an online database). The neural network simply rates how good a certain board is for the current player, a higher number being better. Thus, if the current player has rolled his die and has 18 possible ways to move his checkers into a new board state, the board state with the highest ranking will be the best move calculated by the neural network.
 
 - [Introduction](#introduction)
+- [Play Backgammon](#play)
 - [Genetic Algorithm](#genetic-algorithm)
   * [Neural Network](#neural-network)
     + [Layers](#neural-network-layers)  
@@ -47,7 +48,7 @@ The third layer is simply 1 node that is the sum of all the hidden layer nodes.
 A picture will illustrate this more clearly
 <br /><br />
 <a name="neural-network-illustration"></a>
-![Alt text](neuralnet_layers.png)
+![neural_network_illustration](neuralnet_layers.png)
 <br /><br />
 
 <a name="training-data"></a>
@@ -227,4 +228,18 @@ After creating a data set, we train our neural network by it. After the network 
 
 <b>Conclusions:</b>
 Working on this project has been a lot of fun. We chose genetic algorithm as our trainer in order to see how well it could train a neural network. We hope to train a network using backpropagation and see the differences. This method proved itself promising, and we are sure there are many improvements that can be made to make the neural network play much better. 
+
+
+<a name="play"></a>
+<h1>How To Play</h1>
+The GUI and backgammon code used for this project was taken from another project, so when you run the game you will see options unrelated to playing against the AI developed in this project using genetic algorithm. Below is a step by step guide how to play vs the AI developed by this project.
+<br /><br />
+1. Run the <b>backgammon.jar</b> file
+2. The game setting window will open, it should look like this:
+![Alt text](game_settings.png)
+
+
+
+
+
 
