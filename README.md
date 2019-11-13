@@ -239,6 +239,8 @@ The GUI and backgammon code used for this project was taken from another project
 <br /><br />
 ![Alt text](game_settings.png)
 <br /><br />
+![neural_network_illustration](neuralnet_layers.png)
+<br /><br />
 
 
 
