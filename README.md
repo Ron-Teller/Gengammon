@@ -50,7 +50,7 @@ A picture will illustrate this more clearly
 <a name="neural-network-illustration"></a>
 ![neural_network_illustration](neuralnet_layers.png)
 <br /><br />
-![game_settings](game_settings.PNG)
+![game_settings](game_settings.png)
 <a name="training-data"></a>
 <h1>Training Data</h1>
 <a name="database"></a>
