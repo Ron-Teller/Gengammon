@@ -1,3 +1,11 @@
+<a name="introduction"></a>
+# Gengammon
+Artificial intelligence trained by a genetic algorithm to play backgammon
+<br />
+The name "Gengammon" is formed by combining the words "genetic" and "backgammon" into one.
+<br /><br />
+In this Hackathon project we present a supervised training method using genetic algorithm to train a neural network to play Backgammon. The neural network is trained to mimic moves played by professional backgammon players in real games (taken from an online database). The neural network simply rates how good a certain board is for the current player, a higher number being better. Thus, if the current player has rolled his die and has 18 possible ways to move his checkers into a new board state, the board state with the highest ranking will be the best move calculated by the neural network.
+
 - [Introduction](#introduction)
 - [Genetic Algorithm](#genetic-algorithm)
   * [Neural Network](#neural-network)
@@ -22,14 +30,6 @@
   * [Crossover](#crossover)
   * [Benchmarks](#benchmarks)
 
-
-<a name="introduction"></a>
-# Gengammon
-Artificial intelligence trained by a genetic algorithm to play backgammon
-<br />
-The name "Gengammon" is formed by combining the words "genetic" and "backgammon" into one.
-<br /><br />
-In this Hackathon project we present a supervised training method using genetic algorithm to train a neural network to play Backgammon. The neural network is trained to mimic moves played by professional backgammon players in real games (taken from an online database). The neural network simply rates how good a certain board is for the current player, a higher number being better. Thus, if the current player has rolled his die and has 18 possible ways to move his checkers into a new board state, the board state with the highest ranking will be the best move calculated by the neural network.
 
 <a name="genetic-algorithm"></a>
 <a name="neural-network"></a>
