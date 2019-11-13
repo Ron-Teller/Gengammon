@@ -50,7 +50,6 @@ A picture will illustrate this more clearly
 <a name="neural-network-illustration"></a>
 ![neural_network_illustration](neuralnet_layers.png)
 <br /><br />
-![game_settings](game_settings.png)
 <a name="training-data"></a>
 <h1>Training Data</h1>
 <a name="database"></a>
@@ -237,7 +236,7 @@ The GUI and backgammon code used for this project was taken from another project
 Run the <b>backgammon.jar</b> file
 The game setting window will open, it should look like this:
 <br /><br />
-![game_settings](https://github.com/Ron-Teller/Gengammon/blob/master/game_settings.PNG)
+![game_settings](game_settings.png)
 <br /><br />
 Highlighted in red boxes are the settings that you need to make sure are correct to play against the AI.
 <br />
