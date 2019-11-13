@@ -130,7 +130,8 @@ The fitness function in our genetic algorithm approximates how good of a job a n
 <br /><br />
 
 <a name="fitness-v1"></a>
-<b>[Version 1]</b> The first fitness function was calculated by comparing the chosen board rating (move chosen by professional player) to the lowest and highest rating of all possible board states. For example, given an initial board state that has, for example, 16 different possible moves (one of them is the move chosen by the professional), then we feed all of them through the neural network and get their rating. We then find the MINIMUM_RATING rating given for one of the moves, the MAXIMUM_RATING rating given and PROFESSIONAL_RATING – the rating the neural network gave the move the professional player played. We then use the formula:
+<h3>[Version 1]</h3> 
+The first fitness function was calculated by comparing the chosen board rating (move chosen by professional player) to the lowest and highest rating of all possible board states. For example, given an initial board state that has, for example, 16 different possible moves (one of them is the move chosen by the professional), then we feed all of them through the neural network and get their rating. We then find the MINIMUM_RATING rating given for one of the moves, the MAXIMUM_RATING rating given and PROFESSIONAL_RATING – the rating the neural network gave the move the professional player played. We then use the formula:
 <br /><br />
 <b>| PROFESSIONAL_RATING - MINIMUM_RATING| / |MAXIMUM_RATING - MINIMUM_RATING|</b>
 <br /><br />
@@ -144,7 +145,8 @@ However, what happens if the rest of the 13 possible moves are rated with scores
 <br /><br />
 
 <a name="fitness-v2"></a>
-<b>[Version 2]</b> A new fitness function was formulated that will score the neural networks based on how well they ranked the professional players moves. The new fitness function checks what rating the neural network gave for each possible move, and finds how high the professional player move ranked. The formula is:
+<h3>[Version 2]</h3> 
+A new fitness function was formulated that will score the neural networks based on how well they ranked the professional players moves. The new fitness function checks what rating the neural network gave for each possible move, and finds how high the professional player move ranked. The formula is:
 <br />
 <b>(TOTAL_MOVES – RANK_PROFESSIONAL) / (TOTAL_MOVES – 1)</b>
 <br />
@@ -162,7 +164,8 @@ This is problematic since this fitness function cannot measure if a gene has imp
 <br /><br />
 
 <a name="fitness-v3"></a>
-<b>[Version 3]</b> A new fitness function needed to be formulated to be able to measure small improvements a neural network has made that ranks a professional players move closer to rank 1. Suppose a neural network currently ranks a professional move 3rd, and in the next generation the gene has been mutated, it still ranks the professional move as 3rd, but is “closer” to ranking it as 2nd, then the gene has improved and thus should have a higher fitness score.
+<h3>[Version 3]</h3> 
+A new fitness function needed to be formulated to be able to measure small improvements a neural network has made that ranks a professional players move closer to rank 1. Suppose a neural network currently ranks a professional move 3rd, and in the next generation the gene has been mutated, it still ranks the professional move as 3rd, but is “closer” to ranking it as 2nd, then the gene has improved and thus should have a higher fitness score.
 <br /><br />
 It is important to note that these small increments in fitness score should not overpass the ranking score of the next best rank. For example, if there are 16 possible moves, and a neural network has ranked a professional player move as 3rd best, the fitness function will score that neural network 0.8666. If the neural network ranks it 2nd best, the fitness score will be 0.9333. This means that as long as the neural network ranks a professional player move as 3rd best, any improvements the neural network makes should not improve its fitness score by more than 0.9333, since the score must represent how well the neural network ranks, otherwise we will have the same problem as in the first version of the fitness function. In other words, in this example, if the neural network ranks the professional players move 3rd best (with 16 possible moves), the fitness function must score that neural network between [0.8666, 0.9333).
 <br /><br />
