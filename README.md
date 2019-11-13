@@ -102,11 +102,10 @@ For each test, given the initial board and die, we may generate all possible boa
 The data set is created by parsing all game files recording professional player games. For every move made in a game, it is possible to create a single “test” in the data set as mentioned above. Each one of these “tests” helps our neural network (gene) mimic the moves of professional players, and in turn play like one. This way we can create thousands of test sets, each test set being a unique move played by a professional.
 <br /><br />
 
-<b>Improvements to the data set</b>
-<br /><br />
 <a name="data-set-filters"></a>
+<h2>Data Set Filters</h2>
 Some improvements were made to the data set, which were mainly filtering out data that was not needed.
-<br /><br />
+<br />
 <a name="homebound-filter"></a>
 <b>Homebound Filter:</b> Not all moves played by professionals in games are included in the data set for the neural networks to learn from. We filter out all moves that are made after both players are homebound, meaning that both players have passed each other and it is simply a race to the finish, without any strategy to win, so it would be a waste of resources to train the networks with such data. A simple code was created for the AI to use once it is homebound (it does not rely on the neural network anymore). 
 <br /><br />
@@ -121,12 +120,12 @@ Filtering out these moves (after homebound) made our network learn faster and mu
 
 
 <a name="gene"></a>
-<h1>Gene:</h1> 
+<h1>Gene</h1> 
 A Gene is a single neural network. The neural networks weights are randomized completely when a gene is created.
 
 
 <a name="fitness"></a>
-<h1>Fitness:</j1>
+<h1>Fitness</h1>
 The fitness function in our genetic algorithm approximates how good of a job a neural network (gene) does at rating the moves of professional players the highest from the other possible moves that could have been chosen. There are different ways to calculate the fitness. We will present the different methods that were used and how they were improved.
 <br /><br />
 
@@ -176,13 +175,13 @@ The “secondary score” (small increment in fitness score) is calculated by ta
 
 
 <a name="mutation"></a>
-<h1>Mutation:</h1>
+<h1>Mutation</h1>
 The mutation that worked best was swap mutation, where we pick 2 random weights in the hidden layer and swap them. This mutation was far superior to our binary swapper, where we would pick a random weight and simply change a single bit. Even changing more than 1 bit did not yield such good results (it worked, but was very slow).
 <br /><br />
 
 
 <a name="crossover"></a>
-<h1>Crossover:</h1>
+<h1>Crossover</h1>
 The crossover performed by merging a uniform amount of weights from 2 parents into 1 offspring. This crossover is by far superior the first crossover we tried, which consisted of taking a uniform amount of bits for each weight from 2 parents. <b>This was our biggest improvement in the genetic algorithm</b>, it was very pleasant to see the speed up improvement. It is worth noting that once convergence started slowing down (usually at 94%), we could switch between the crossovers after every amount of iterations. We are not sure if it was better this way or not.
 <br /><br />
 
