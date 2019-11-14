@@ -50,6 +50,7 @@ A picture will illustrate this more clearly
 <a name="neural-network-illustration"></a>
 ![neural_network_illustration](neuralnet_layers.png)
 <br /><br />
+
 <a name="training-data"></a>
 <h1>Training Data</h1>
 <a name="database"></a>
@@ -58,7 +59,6 @@ A picture will illustrate this more clearly
 
 The game files may be retrieved writing a script to download them (should be somewhere in repository).
 <br />
-
 <a name="data-format"></a>
 <h2>Data Format</h2>
 The database consists of several text formats for recording games, so it is necessary to parse each one differently, and then make sure that all moves are valid by backgammon game logic. An example of a file looks like this:
@@ -86,7 +86,6 @@ In the game above, 10 moves were recorded total, 5 played by Thomas Low and anot
 <br /><br />
 The way to train our neural network is, given an initial board state and die roll that a professional player has played, generate all possible board states (from all possible moves) and train the neural network to rate the board state chosen by the professional player the highest (“chosen board state”). The fitness function in our genetic algorithm does just that – approximates how good of a job a neural network (gene) does at rating the moves of professional players the highest from the other possible moves that could have been chosen (more details about the fitness function later).
 <br /><br />
-
 
 <a name="data-set"></a>
 <h1>Data Set (Training set)</h1>
@@ -117,7 +116,6 @@ Filtering out these moves (after homebound) made our network learn faster and mu
 <a name="unmovable-filter"></a>
 <b>Unmovable Plays Filter:</b> Another simple data set filter that we have not yet implemented is filtering out all tests that comprise of moves that are unmovable, that means that the initial board and chosen board are the same (this only happens if the player has an imprisoned checker and cannot enter the opponents base), since it takes up CPU time and does not make a difference to the training.
 <br /><br />
-
 
 <a name="gene"></a>
 <h1>Gene</h1> 
@@ -230,14 +228,18 @@ Working on this project has been a lot of fun. We chose genetic algorithm as our
 
 
 <a name="play"></a>
+<br /><br />
 <h1>How To Play</h1>
 The GUI and backgammon code used for this project was taken from another project, so when you run the game you will see options unrelated to playing against the AI developed in this project using genetic algorithm. Below is a step by step guide how to play vs the AI developed by this project.
 <br /><br />
 Run the <b>backgammon.jar</b> file
 The game setting window will open, it should look like this:
 <br /><br />
+
+<a name="game-settings"></a>
 ![game_settings](game_settings.png)
 <br /><br />
+
 Highlighted in red boxes are the settings that you need to make sure are correct to play against the AI.
 <br />
 <b>Game Mode:</b> Choose <b>"Normal"</b> - IMPORTANT! (the other 2 choices are non relevant are for another project). Normal means normal die rolls.
@@ -256,7 +258,8 @@ Highlighted in red boxes are the settings that you need to make sure are correct
 <br /><br />
 Press <b>"START GAME"</b> to run the game. A game window will pop up.
 <br /><br />
-![Game Window](https://github.com/Ron-Teller/Gengammon/blob/master/game_window.PNG)
+<a name="game-window"></a>
+![game_window](game_window.PNG)
 <br /><br />
 <b>New Game:</b> Start a new game.
 <br />
