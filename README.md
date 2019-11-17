@@ -232,7 +232,7 @@ Working on this project has been a lot of fun. We chose genetic algorithm as our
 <h1>How To Play</h1>
 The GUI and backgammon code used for this project was taken from another project, so when you run the game you will see options unrelated to playing against the AI developed in this project using genetic algorithm. Below is a step by step guide how to play vs the AI developed by this project.
 <br /><br />
-Run the <b>backgammon.jar</b> file
+Run the <b>backgammon.jar</b> file. Make sure you are running it from a folder that contains the other files of this repository.
 The game setting window will open, it should look like this:
 <br /><br />
 
