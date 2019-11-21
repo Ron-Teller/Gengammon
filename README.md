@@ -46,8 +46,9 @@ The <b>second</b> layer is the hidden layer, it consists of 26 nodes that are co
 The third layer is simply 1 node that is the sum of all the hidden layer nodes.
 <br /><br />
 A picture will illustrate this more clearly
-<br /><br />
 <a name="neural-network-illustration"></a>
+<br /><br />
+
 ![neural_network_illustration](neuralnet_layers.png)
 <br /><br />
 
